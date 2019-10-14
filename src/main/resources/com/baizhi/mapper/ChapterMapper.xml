@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.ChapterMapper">
+    <select id="findAllPage" resultType="chapter">
+        select * from chapter  WHERE special_id=#{id} LIMIT #{start},#{rows}
+    </select>
+    <select id="count" resultType="java.lang.Integer">
+        select count(id) from chapter where special_id = #{id}
+    </select>
+    <insert id="add">
+        insert into chapter values(#{id},#{title},#{size},#{date},#{upDate},#{name},#{special_id})
+    </insert>
+    <update id="updatePath">
+        update chapter set name=#{src},size=#{size},date=#{date} where id = #{id}
+    </update>
+    <update id="update">
+        update chapter set title=#{title}  where id=#{id}
+    </update>
+    <delete id="del">
+        delete from chapter where id in
+        <foreach collection="array" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
