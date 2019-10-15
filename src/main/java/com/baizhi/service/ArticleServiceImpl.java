@@ -1,7 +1,6 @@
 package com.baizhi.service;
 
 import com.baizhi.entity.Article;
-import com.baizhi.entity.Special;
 import com.baizhi.mapper.ArticleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 @Service
 @Transactional
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
     private ArticleMapper articleMapper;
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public Map<String, Object> queryAll(Integer page, Integer rows) {
@@ -30,6 +31,7 @@ public class ArticleServiceImpl implements ArticleService {
         maps.put("total", total);
         return maps;
     }
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public Integer count() {
@@ -48,7 +50,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public void del(String[] id, String oper) {
-        if (oper.equals("del")){
+        if (oper.equals("del")) {
             articleMapper.del(id);
         }
     }

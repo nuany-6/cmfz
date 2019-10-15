@@ -1,6 +1,5 @@
 package com.baizhi.service;
 
-import com.baizhi.entity.Slideshow;
 import com.baizhi.entity.Special;
 import com.baizhi.mapper.SpecialMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.lang.Character.getType;
-
 @Transactional
 @Service
 public class SpecialServiceImpl implements SpecialService {
     @Autowired
     SpecialMapper specialMapper;
+
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> queryAll(Integer page, Integer rows) {

@@ -15,24 +15,28 @@ import java.util.UUID;
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
+
     @RequestMapping("queryAll")
-    public Map<String,Object> queryAll(Integer page,Integer rows){
+    public Map<String, Object> queryAll(Integer page, Integer rows) {
         Map<String, Object> map = articleService.queryAll(page, rows);
         return map;
     }
+
     @RequestMapping("add")
-    public void add(Article article){
+    public void add(Article article) {
         String id = UUID.randomUUID().toString().replace("-", "");
         article.setId(id);
         article.setDate(new Date());
         articleService.add(article);
     }
+
     @RequestMapping("update")
-    public void update(Article article){
+    public void update(Article article) {
         articleService.update(article);
     }
+
     @RequestMapping("edit")
-    public String edit(String[] id,String oper){
+    public String edit(String[] id, String oper) {
         articleService.del(id, oper);
         return null;
     }

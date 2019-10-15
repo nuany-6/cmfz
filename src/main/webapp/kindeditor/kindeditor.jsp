@@ -10,18 +10,18 @@
     <script src="lang/zh-CN.js"></script>
     <script>
         KindEditor.ready(function (k) {
-            window.editor = k.create('#editor_id',{
-                allowFileManager:true,
-                uploadJson:"${pageContext.request.contextPath}/kindeditor/upload",
-                filePostName:"img",
-                fileManagerJson:"${pageContext.request.contextPath}/kindeditor/allImages"
+            window.editor = k.create('#editor_id', {
+                allowFileManager: true,
+                uploadJson: "${pageContext.request.contextPath}/kindeditor/upload",
+                filePostName: "img",
+                fileManagerJson: "${pageContext.request.contextPath}/kindeditor/allImages"
 
             })
         })
     </script>
 </head>
 <body>
-    <textarea id="editor_id" name="content" style="width:700px;height:300px;">
+<textarea id="editor_id" name="content" style="width:700px;height:300px;">
     &lt;strong&gt;HTML内容&lt;/strong&gt;
     </textarea>
 </body>

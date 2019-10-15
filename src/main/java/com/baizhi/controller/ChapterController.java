@@ -1,12 +1,8 @@
 package com.baizhi.controller;
 
-import ch.qos.logback.core.util.FileUtil;
 import com.baizhi.entity.Chapter;
-import com.baizhi.entity.Special;
 import com.baizhi.service.ChapterService;
-
 import com.baizhi.service.SpecialService;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -41,46 +37,49 @@ public class ChapterController {
     ChapterService chapterService;
     @Autowired
     SpecialService specialService;
+
     @RequestMapping("findAllPage")
-    public Map<String,Object> findAllPage(Integer page,Integer rows,String albumid){
-        Map<String, Object> allPage = chapterService.findAllPage(page, rows,albumid);
+    public Map<String, Object> findAllPage(Integer page, Integer rows, String albumid) {
+        Map<String, Object> allPage = chapterService.findAllPage(page, rows, albumid);
         return allPage;
     }
+
     @RequestMapping("edit")
-    public String edit( Chapter chapter, String oper, String albumid, String[] id){
+    public String edit(Chapter chapter, String oper, String albumid, String[] id) {
         Integer integer = specialService.selectById(albumid);
-        if (oper.equals("add")){
+        if (oper.equals("add")) {
             String s = UUID.randomUUID().toString();
             chapter.setId(s);
             chapter.setSpecial_id(albumid);
             chapterService.add(chapter);
-            specialService.updateCount(integer+1,albumid);
+            specialService.updateCount(integer + 1, albumid);
             return s;
-        }else if(oper.equals("del")){
-            specialService.updateCount(integer-id.length,albumid);
+        } else if (oper.equals("del")) {
+            specialService.updateCount(integer - id.length, albumid);
             chapterService.del(id);
-        }else {
+        } else {
             chapter.setSpecial_id(albumid);
             chapterService.update(chapter);
         }
         return null;
     }
+
     @RequestMapping("upload")
     public void upload(MultipartFile name, String id, HttpSession session) throws TagException, ReadOnlyFileException, CannotReadException, InvalidAudioFrameException, IOException {
         String realPath = session.getServletContext().getRealPath("/audio");
         File file = new File(realPath);
-        if(!file.exists()){
+        if (!file.exists()) {
             file.mkdirs();
         }
         String originalFilename = name.getOriginalFilename();
         String newFileName = new Date().getTime() + "_" + originalFilename;
         try {
-            name.transferTo(new File(realPath,newFileName));
+            name.transferTo(new File(realPath, newFileName));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String path = "/audio/"+newFileName;
+        String path = "/audio/" + newFileName;
         //获取文件位置
         String realPath1 = session.getServletContext().getRealPath(path);
         File file1 = new File(realPath1);
@@ -91,39 +90,39 @@ public class ChapterController {
         AudioHeader header = read.getAudioHeader();
         int trackLength = header.getTrackLength();
         //获取分钟数
-        Integer m=trackLength/60;
+        Integer m = trackLength / 60;
         //获取秒秒数
-        Integer s=trackLength%60;
-        String date = m+"分"+s+"秒";
+        Integer s = trackLength % 60;
+        String date = m + "分" + s + "秒";
         //将文件大小强转成double类型
-        double size=(double) length;
+        double size = (double) length;
         //获取文件大小 单位是MB
-        double ll=size/1024/1024;
+        double ll = size / 1024 / 1024;
         //取double小数点后两位  四舍五入
         BigDecimal bg = new BigDecimal(ll).setScale(2, RoundingMode.UP);
-        String dd=bg+"MB";
-        chapterService.updatePath(newFileName,dd,date,id);
+        String dd = bg + "MB";
+        chapterService.updatePath(newFileName, dd, date, id);
 
     }
+
     @RequestMapping("/download")
-    public void download(String filename, HttpServletRequest request, HttpServletResponse response)throws IOException {
+    public void download(String filename, HttpServletRequest request, HttpServletResponse response) throws IOException {
         //获取目标文件夹的路径
         String realPath = request.getSession().getServletContext().getRealPath("/audio");
         //读入
-        FileInputStream fis = new FileInputStream(new File(realPath,filename));
+        FileInputStream fis = new FileInputStream(new File(realPath, filename));
 
         //写出
-        ServletOutputStream os= response.getOutputStream();
+        ServletOutputStream os = response.getOutputStream();
         //设置响应头
-        response.setHeader("content-disposition","attachment;filename="+ URLEncoder.encode(filename,"utf-8"));
+        response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(filename, "utf-8"));
 
-        IOUtils.copy(fis,os);
+        IOUtils.copy(fis, os);
         //关流
         IOUtils.closeQuietly(fis);
         IOUtils.closeQuietly(os);
 
     }
-
 
 
 }

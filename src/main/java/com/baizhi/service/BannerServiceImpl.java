@@ -1,13 +1,11 @@
 package com.baizhi.service;
 
-import ch.qos.logback.core.util.FileUtil;
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.baizhi.entity.Slideshow;
 import com.baizhi.mapper.BannerMapper;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -15,8 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLEncoder;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +23,7 @@ import java.util.Map;
 public class BannerServiceImpl implements BannerService {
     @Autowired
     BannerMapper bannerMapper;
+
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public Map<String, Object> findAll(Integer page, Integer rows) {
@@ -40,6 +38,7 @@ public class BannerServiceImpl implements BannerService {
         maps.put("total", total);
         return maps;
     }
+
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public void queryAll(HttpServletRequest request, HttpServletResponse response) {
@@ -47,14 +46,14 @@ public class BannerServiceImpl implements BannerService {
 
         List<Slideshow> list = bannerMapper.queryAll();
         for (Slideshow slideshow : list) {
-            slideshow.setSrc(imgPath+"/"+slideshow.getSrc());
+            slideshow.setSrc(imgPath + "/" + slideshow.getSrc());
         }
-        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("轮播图信息","轮播图"),
-                Slideshow .class, list);
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("轮播图信息", "轮播图"),
+                Slideshow.class, list);
 
         try {
             ServletOutputStream outputStream = response.getOutputStream();
-            response.setHeader("content-disposition","attachment");
+            response.setHeader("content-disposition", "attachment");
             response.setContentType("application/vnd.ms-excel;charset=utf-8");
             workbook.write(outputStream);
 
@@ -77,7 +76,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public void updateSrc(String src, String id) {
-        bannerMapper.updateSrc(src,id);
+        bannerMapper.updateSrc(src, id);
     }
 
     @Override
@@ -88,6 +87,6 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public void delete(String[] id) {
-            bannerMapper.delete(id);
+        bannerMapper.delete(id);
     }
 }

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class GoEasyController {
     @RequestMapping("goeasy")
     public void goEasy(String aa) {
-        GoEasy goEasy = new GoEasy( "http://rest-hangzhou.goeasy.io", "BC-a29d976b67a941dbaa2783636a024159");
-        goEasy.publish("aa",aa);
+        GoEasy goEasy = new GoEasy("http://rest-hangzhou.goeasy.io", "BC-a29d976b67a941dbaa2783636a024159");
+        goEasy.publish("aa", aa);
         System.out.println(aa);
 
     }

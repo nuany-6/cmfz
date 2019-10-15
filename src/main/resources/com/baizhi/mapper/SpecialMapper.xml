@@ -20,14 +20,14 @@
     </update>
     <delete id="del">
 
-        DELETE from special WHERE  id in
+        DELETE from special WHERE id in
         <foreach collection="array" open="(" separator="," close=")" item="id">
             #{id}
         </foreach>
     </delete>
     <delete id="delChapter">
 
-        DELETE  from chapter WHERE  special_id in
+        DELETE from chapter WHERE special_id in
         <foreach collection="array" open="(" separator="," close=")" item="id">
             #{id}
         </foreach>

@@ -21,10 +21,10 @@ public class Slideshow {
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "上传时间",format = "yyyy-MM-dd")
+    @Excel(name = "上传时间", format = "yyyy-MM-dd")
     private Date time;
     @Excel(name = "描述")
     private String intr;
-    @Excel(name = "图片",type = 2)
+    @Excel(name = "图片", type = 2)
     private String src;
 }

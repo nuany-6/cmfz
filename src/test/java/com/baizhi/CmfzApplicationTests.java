@@ -1,6 +1,5 @@
 package com.baizhi;
 
-import com.baizhi.entity.Admin;
 import com.baizhi.mapper.AdminMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class CmfzApplicationTests {
     @Autowired
     AdminMapper adminMapper;
+
     @Test
     public void name() {
 

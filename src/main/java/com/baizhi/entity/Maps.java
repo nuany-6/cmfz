@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Maps {
     private String name;
-    private Integer value=0;
+    private Integer value = 0;
 }

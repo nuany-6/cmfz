@@ -319,7 +319,7 @@ div.tablediv > .table-bordered {
 .ui-jqgrid .ui-jqgrid-toppager {
     border-left-width: 0px;
     border-top: 1px solid #ddd;
-    padding : 40px;
+    padding: 40px;
     position: relative;
     height: 40px;
     white-space: nowrap;

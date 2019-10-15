@@ -7,17 +7,18 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Special {
     private String id;
-    private String  title;
+    private String title;
     private String score;
     private String author;
-    private String  announcer;
+    private String announcer;
     private Integer count;
-    private String  content;
+    private String content;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8"  pageEncoding="UTF-8" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false" %>
 <script type="text/javascript">
 
     // 基于准备好的dom，初始化echarts实例
@@ -8,40 +8,40 @@
 
     // 指定图表的配置项和数据
     option = {
-        title : {
+        title: {
             text: '用户注册分布量',
             subtext: '内容666',
             left: 'center'
         },
-        tooltip : {
+        tooltip: {
             trigger: 'item'
         },
         legend: {
             orient: 'vertical',
             left: 'left',
-            data:['用户']
+            data: ['用户']
         },
         visualMap: {
             min: 0,
             max: 3000,
             left: 'left',
             top: 'bottom',
-            text:['高','低'],           // 文本，默认为数值文本
-            calculable : true
+            text: ['高', '低'],           // 文本，默认为数值文本
+            calculable: true
         },
         toolbox: {
             show: true,
-            orient : 'vertical',
+            orient: 'vertical',
             left: 'right',
             top: 'center',
-            feature : {
-                mark : {show: true},
-                dataView : {show: true, readOnly: false},
-                restore : {show: true},
-                saveAsImage : {show: true}
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                restore: {show: true},
+                saveAsImage: {show: true}
             }
         },
-        series : [
+        series: [
             {
                 name: '用户',
                 type: 'map',
@@ -67,13 +67,13 @@
     myChart.setOption(option);
 
     $.ajax({
-        url:"${pageContext.request.contextPath}/user/queryAll",
-        datatype:"json",
-        type:"POST",
-        success:function (da) {
+        url: "${pageContext.request.contextPath}/user/queryAll",
+        datatype: "json",
+        type: "POST",
+        success: function (da) {
             console.log(da);
             myChart.setOption({
-                series:[{data:da}]
+                series: [{data: da}]
             });
         }
     })

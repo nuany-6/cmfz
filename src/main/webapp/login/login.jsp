@@ -24,33 +24,33 @@
     <script src="assets/js/scripts.js"></script>
     <script src="../boot/js/jquery.validate.min.js"></script>
     <script>
-       $(function () {
-           $.extend($.validator.messages, {
-               required: "<span style='color: red'>这是必填字段</span>",
-           })
-           $("#loginButtonId").click(function () {
-
-               var flag = $("#loginForm").valid();
-               if (flag){
-                   $.ajax({
-                       url:"${app}/admin/login",
-                       type:"post",
-                       data:$("#loginForm").serialize(),
-                       dataType:"json",
-                       success:function (data) {
-                           if(data.msg!=null){
-                               $("#span").text(data.msg)
-                           }else {
-                               location.href="${app}/jsp/index.jsp"
-                           }
-                       }
-                   })
-               }
-           })
-            $("#captchaImage").click(function () {
-                $("#captchaImage").prop("src","${app}/admin/image?t="+new Date().getTime())
+        $(function () {
+            $.extend($.validator.messages, {
+                required: "<span style='color: red'>这是必填字段</span>",
             })
-       })
+            $("#loginButtonId").click(function () {
+
+                var flag = $("#loginForm").valid();
+                if (flag) {
+                    $.ajax({
+                        url: "${app}/admin/login",
+                        type: "post",
+                        data: $("#loginForm").serialize(),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.msg != null) {
+                                $("#span").text(data.msg)
+                            } else {
+                                location.href = "${app}/jsp/index.jsp"
+                            }
+                        }
+                    })
+                }
+            })
+            $("#captchaImage").click(function () {
+                $("#captchaImage").prop("src", "${app}/admin/image?t=" + new Date().getTime())
+            })
+        })
     </script>
 </head>
 
@@ -97,10 +97,13 @@
                                        class="form-password form-control" id="form-password" required>
                             </div>
                             <div class="form-group">
-                                <img id="captchaImage" style="height: 48px;width: 105px" class="captchaImage" src="${app}/admin/image">
-                                <input style="width: 289px;height: 50px;border:3px solid #ddd;border-radius: 4px;" type="text" name="code" id="form-code" required>
+                                <img id="captchaImage" style="height: 48px;width: 105px" class="captchaImage"
+                                     src="${app}/admin/image">
+                                <input style="width: 289px;height: 50px;border:3px solid #ddd;border-radius: 4px;"
+                                       type="text" name="code" id="form-code" required>
                             </div>
-                            <input type="button" style="width: 400px;border:1px solid #9d9d9d;border-radius: 4px;" id="loginButtonId" value="登录">
+                            <input type="button" style="width: 400px;border:1px solid #9d9d9d;border-radius: 4px;"
+                                   id="loginButtonId" value="登录">
                         </form>
                     </div>
                 </div>

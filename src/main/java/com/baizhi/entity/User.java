@@ -16,7 +16,7 @@ import java.util.Date;
 public class User {
     private String id;
     private String name;
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 }

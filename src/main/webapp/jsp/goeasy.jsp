@@ -46,9 +46,9 @@
 <body>
 <div id="div" align="center">
 
-        <input  id="inp" type="text" name="aa" style="">
-        <button  id="btn">发送</button>
-        <button  id="btn1">清空</button>
+    <input id="inp" type="text" name="aa" style="">
+    <button id="btn">发送</button>
+    <button id="btn1">清空</button>
     <div id="b"></div>
 </div>
 

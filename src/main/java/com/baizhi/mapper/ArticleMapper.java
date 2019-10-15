@@ -6,9 +6,13 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface ArticleMapper {
-    List<Article> queryAll(@Param("start") Integer start,@Param("rows") Integer rows);
+    List<Article> queryAll(@Param("start") Integer start, @Param("rows") Integer rows);
+
     Integer count();
+
     void add(Article article);
+
     void update(Article article);
+
     void del(String[] id);
 }

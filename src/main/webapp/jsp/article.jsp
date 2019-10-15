@@ -2,117 +2,108 @@
 <script>
     $(function () {
         $("#articleList").jqGrid({
-            url:"${pageContext.request.contextPath}/article/queryAll",
-            editurl:"${pageContext.request.contextPath}/article/edit",
-            datatype:"json",
-            colNames:["主键","标题","内容","作者","创建时间","状态","操作"],
-            colModel:[
-                {name:"id",hidden:true},
-                {name:"title",align:"center"},
-                {name:"content",hidden:true},
-                {name:"author",align:"center"},
-                {name:"date",formatter:"date",align:"center"},
-                {name:"status",align:"center"},
-                {name:"",align:"center",
-                    formatter:function (a,b,c) {
-                        return "<a  href='#' onclick=\"lookModal('"+c.id+"')\" ><span class='glyphicon glyphicon-pencil'></span></a>"
+            url: "${pageContext.request.contextPath}/article/queryAll",
+            editurl: "${pageContext.request.contextPath}/article/edit",
+            datatype: "json",
+            colNames: ["主键", "标题", "内容", "作者", "创建时间", "状态", "操作"],
+            colModel: [
+                {name: "id", hidden: true},
+                {name: "title", align: "center"},
+                {name: "content", hidden: true},
+                {name: "author", align: "center"},
+                {name: "date", formatter: "date", align: "center"},
+                {name: "status", align: "center"},
+                {
+                    name: "", align: "center",
+                    formatter: function (a, b, c) {
+                        return "<a  href='#' onclick=\"lookModal('" + c.id + "')\" ><span class='glyphicon glyphicon-pencil'></span></a>"
                     }
                 }
             ],
-            styleUI:"Bootstrap",
-            autowidth:true,
-            height:"60%",
-            pager:"#articlePager",
-            page:1,
-            rowNum:2,
-            multiselect:true,
-            rowList:[2,4,6],
-            viewrecords:true
-        }).jqGrid('navGrid', '#articlePager', {search:false,edit: false, add: false, del: true})
+            styleUI: "Bootstrap",
+            autowidth: true,
+            height: "60%",
+            pager: "#articlePager",
+            page: 1,
+            rowNum: 2,
+            multiselect: true,
+            rowList: [2, 4, 6],
+            viewrecords: true
+        }).jqGrid('navGrid', '#articlePager', {search: false, edit: false, add: false, del: true})
     });
 
     function showModal() {
-       $("#myModal").modal('show');
-       $("#addArticleFrom")[0].reset();
-       KindEditor.html("#editor","");
-       KindEditor.create('#editor',{
-            uploadJson:"${pageContext.request.contextPath}/kindeditor/upload",
-            filePostName:"img",
-            allowFileManager:true,
-            fileManagerJson:"${pageContext.request.contextPath}/kindeditor/allImages",
-            afterBlur:function () {
+        $("#myModal").modal('show');
+        $("#addArticleFrom")[0].reset();
+        KindEditor.html("#editor", "");
+        KindEditor.create('#editor', {
+            uploadJson: "${pageContext.request.contextPath}/kindeditor/upload",
+            filePostName: "img",
+            allowFileManager: true,
+            fileManagerJson: "${pageContext.request.contextPath}/kindeditor/allImages",
+            afterBlur: function () {
                 this.sync();
             }
-       });
-       $("#modal_footer").html(
-           "<button type=\"button\" onclick=\"addArticle()\" class=\"btn btn-primary\">添加</button>\n" +
-           "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">取消</button>"
-       )
+        });
+        $("#modal_footer").html(
+            "<button type=\"button\" onclick=\"addArticle()\" class=\"btn btn-primary\">添加</button>\n" +
+            "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">取消</button>"
+        )
 
     }
+
     function addArticle() {
         $.ajax({
-            url:"${pageContext.request.contextPath}/article/add",
-            datatype:"json",
-            type:"post",
-            data:$("#addArticleFrom").serialize(),
-            success:function (data) {
+            url: "${pageContext.request.contextPath}/article/add",
+            datatype: "json",
+            type: "post",
+            data: $("#addArticleFrom").serialize(),
+            success: function (data) {
                 $("#myModal").modal('toggle');
                 $("#articleList").trigger("reloadGrid");
             }
         })
     }
-
-
 
 
     function lookModal(id) {
         $("#myModal").modal('show');
         $("#addArticleFrom")[0].reset();
-        KindEditor.html("#editor","");
-        var vlaue =$("#articleList").jqGrid("getRowData",id);
+        KindEditor.html("#editor", "");
+        var vlaue = $("#articleList").jqGrid("getRowData", id);
         $("#title").val(vlaue.title);
         $("#author").val(vlaue.author);
         $("#status").val(vlaue.status);
         $("#date").val(vlaue.date);
         $("#modal_footer").html(
-            "<button type=\"button\" onclick=\"updateArticle('"+id+"')\" class=\"btn btn-primary\">修改</button>\n" +
+            "<button type=\"button\" onclick=\"updateArticle('" + id + "')\" class=\"btn btn-primary\">修改</button>\n" +
             "<button type=\"button\" class=\"btn btn-danger\" data-dismiss=\"modal\">取消</button>"
         );
 
-        KindEditor.create('#editor',{
-            uploadJson:"${pageContext.request.contextPath}/kindeditor/upload",
-            filePostName:"img",
-            allowFileManager:true,
-            fileManagerJson:"${pageContext.request.contextPath}/kindeditor/allImages",
-            afterBlur:function () {
+        KindEditor.create('#editor', {
+            uploadJson: "${pageContext.request.contextPath}/kindeditor/upload",
+            filePostName: "img",
+            allowFileManager: true,
+            fileManagerJson: "${pageContext.request.contextPath}/kindeditor/allImages",
+            afterBlur: function () {
                 this.sync();
             }
         });
-        KindEditor.appendHtml("#editor",vlaue.content);
+        KindEditor.appendHtml("#editor", vlaue.content);
     }
 
     function updateArticle(id) {
         $.ajax({
-            url:"${pageContext.request.contextPath}/article/update?id="+id,
-            datatype:"json",
-            type:"post",
-            data:$("#addArticleFrom").serialize(),
-            success:function (data) {
+            url: "${pageContext.request.contextPath}/article/update?id=" + id,
+            datatype: "json",
+            type: "post",
+            data: $("#addArticleFrom").serialize(),
+            success: function (data) {
                 $("#myModal").modal('toggle');
                 $("#articleList").trigger("reloadGrid");
             }
         })
     }
-
-
-
-
-
-
-
-
-
 
 
 </script>
@@ -121,8 +112,10 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">文章列表</a></li>
-        <li role="presentation"><a href="#profile" onclick="showModal()" aria-controls="profile" role="tab" data-toggle="tab">添加文章</a></li>
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                  data-toggle="tab">文章列表</a></li>
+        <li role="presentation"><a href="#profile" onclick="showModal()" aria-controls="profile" role="tab"
+                                   data-toggle="tab">添加文章</a></li>
     </ul>
 
 </div>
@@ -159,7 +152,7 @@
                             <input type="text" name="author" id="author" placeholder="作者姓名" class="form-control">
                         </div>
                     </div>
-                            <input type="hidden" name="date" id="date" placeholder="时间" class="form-control">
+                    <input type="hidden" name="date" id="date" placeholder="时间" class="form-control">
                     <div class="form-group">
                         <label class="col-sm-1 control-label">状态</label>
                         <div class="col-sm-5">

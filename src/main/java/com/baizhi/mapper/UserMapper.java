@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface UserMapper {
     List<Maps> queryAll();
+
     List<Integer> findAll();
 }

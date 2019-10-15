@@ -1,7 +1,6 @@
 package com.baizhi.service;
 
 import com.baizhi.entity.Chapter;
-import com.baizhi.entity.Special;
 import com.baizhi.mapper.ChapterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,14 @@ import java.util.Map;
 public class ChapterServiceImpl implements ChapterService {
     @Autowired
     ChapterMapper chapterMapper;
+
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public Map<String,Object> findAllPage(Integer page, Integer rows,String id) {
+    public Map<String, Object> findAllPage(Integer page, Integer rows, String id) {
         Integer count = chapterMapper.count(id);
         Integer start = (page - 1) * rows;
         Integer total = count % rows == 0 ? count / rows : count / rows + 1;
-        List<Chapter> all = chapterMapper.findAllPage(start, rows,id);
+        List<Chapter> all = chapterMapper.findAllPage(start, rows, id);
         Map<String, Object> maps = new HashMap<>();
         maps.put("rows", all);
         maps.put("records", count);
@@ -38,7 +38,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public void updatePath(String src,String size,String date,String id) {
+    public void updatePath(String src, String size, String date, String id) {
         chapterMapper.updatePath(src, size, date, id);
     }
 

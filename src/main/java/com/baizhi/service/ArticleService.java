@@ -6,9 +6,13 @@ import java.util.Map;
 
 
 public interface ArticleService {
-    Map<String,Object> queryAll(Integer page, Integer rows);
+    Map<String, Object> queryAll(Integer page, Integer rows);
+
     Integer count();
+
     void add(Article article);
+
     void update(Article article);
-    void del(String[] id,String oper);
+
+    void del(String[] id, String oper);
 }
