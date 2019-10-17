@@ -24,7 +24,6 @@ public class AdminController {
     @RequestMapping("/login")
     @ResponseBody
     public Map<String, String> login(HttpSession session, String username, String password, String code) {
-        System.out.println("session = [" + session + "], username = [" + username + "], password = [" + password + "], code = [" + code + "]");
         Map<String, String> login = adminService.login(username, password, code, session);
         return login;
     }
