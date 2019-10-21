@@ -4,6 +4,9 @@
     <select id="queryAll" resultType="Article">
         select id,title,content,author,date,status from article limit #{start},#{rows}
     </select>
+    <select id="findAll" resultType="Article">
+        select id,title,content,author,date,status from article
+    </select>
     <select id="count" resultType="java.lang.Integer">
         select count(id) from article
     </select>

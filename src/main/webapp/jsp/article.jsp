@@ -105,6 +105,13 @@
         })
     }
 
+    $(function () {
+        $("#basic-addon2").click(function () {
+            var inp = $("#inp").val()
+            alert(inp)
+            javascript:$('#lay-right').load('es.jsp?val=' + inp)
+        })
+    })
 
 </script>
 
@@ -116,13 +123,17 @@
                                                   data-toggle="tab">文章列表</a></li>
         <li role="presentation"><a href="#profile" onclick="showModal()" aria-controls="profile" role="tab"
                                    data-toggle="tab">添加文章</a></li>
+        <div class="input-group" style="width: 30%;float: right">
+            <input id="inp" type="text" class="form-control" placeholder="请输入关键词" aria-describedby="basic-addon2">
+            <span style="cursor:pointer" class="input-group-addon" id="basic-addon2">搜索</span>
+        </div>
     </ul>
 
 </div>
 
 
 <table id="articleList"></table>
-<div style="height: 40px" id="articlePager"></div>
+<div style="" id="articlePager"></div>
 
 <div class="modal fade" id="myModal" tabindex="-1">
     <div class="modal-dialog">

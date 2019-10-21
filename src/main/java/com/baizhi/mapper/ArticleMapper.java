@@ -8,6 +8,7 @@ import java.util.List;
 public interface ArticleMapper {
     List<Article> queryAll(@Param("start") Integer start, @Param("rows") Integer rows);
 
+    List<Article> findAll();
     Integer count();
 
     void add(Article article);
